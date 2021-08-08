@@ -660,14 +660,27 @@ EPS_print_bpp_data( FILE          *eps,
   plist   *pl1;
 
   fprintf(eps,"%%start of base pair probability data\n");
-
+   
+  /*   print bpp     */      
+  FILE *bpp_f = fopen("bpp.txt", "w");
+        
+  if (bpp_f == NULL)
+  {
+    printf("Error opening bpp.txt file ! \n");
+    exit(1);
+  }
+        
+        
   /* print boxes in upper right half*/
   for (pl1 = pl; pl1->i>0; pl1++) {
     tmp = sqrt(pl1->p);
-    if(pl1->type == VRNA_PLIST_TYPE_BASEPAIR)
+    if(pl1->type == VRNA_PLIST_TYPE_BASEPAIR){
         fprintf(eps,"%d %d %1.9f ubox\n", pl1->i, pl1->j, tmp);
+        fprintf(bpp_f, "%d\t %d\t %1.9f\n",pl1->i, pl1->j, pl1->p);
+    }        
   }
-
+        
+  fclose(bpp_f);
 
   /* print boxes in lower left half (mfe) */
   for (pl1=mf; pl1->i>0; pl1++) {
