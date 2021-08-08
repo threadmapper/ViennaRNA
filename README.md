@@ -123,6 +123,10 @@ autoreconf -i
 After that, you can compile and install the ViennaRNA Package as if obtained
 from the distribution tarball.
 
+An example for testing under a singularity container the defiition file is under packaging directory.
+
+
+
 ----
 
 ## Configuration
